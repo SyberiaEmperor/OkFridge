@@ -1,0 +1,80 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Ok Fridge RESTful API",
+    "description": "RESTful API of SuperMarket service\n",
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "/"
+    }
+  ],
+  "tags": [
+    {
+      "name": "users",
+      "description": "Operations available to users"
+    }
+  ],
+  "paths": {
+    "/market": {
+      "post": {
+        "tags": [
+          "users"
+        ],
+        "summary": "add new order",
+        "description": "Request order\n",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Order"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "order requested"
+          },
+          "400": {
+            "description": "invalid input"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Order": {
+        "type": "object",
+        "properties": {
+          "products": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "integer"
+            }
+          },
+          "time": {
+            "$ref": "#/components/schemas/TimePeriod"
+          }
+        }
+      },
+      "TimePeriod": {
+        "type": "object",
+        "properties": {
+          "from": {
+            "type": "number"
+          },
+          "to": {
+            "type": "number"
+          }
+        }
+      }
+    }
+  }
+}

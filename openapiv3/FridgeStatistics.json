@@ -1,0 +1,147 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Ok Fridge RESTful API",
+    "description": "RESTful API of Statistics service\n",
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "/"
+    }
+  ],
+  "tags": [
+    {
+      "name": "users",
+      "description": "Operations available to users"
+    }
+  ],
+  "paths": {
+    "/product/{id}": {
+      "get": {
+        "tags": [
+          "users"
+        ],
+        "summary": "get stat by product",
+        "description": "Get statistics by special product\n",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id of requested product",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "ok"
+          },
+          "400": {
+            "description": "invalid input"
+          }
+        }
+      }
+    },
+    "/products": {
+      "get": {
+        "tags": [
+          "users"
+        ],
+        "summary": "get stat of all products",
+        "description": "Get statistics of all used products\n",
+        "responses": {
+          "201": {
+            "description": "ok"
+          },
+          "400": {
+            "description": "invalid input"
+          }
+        }
+      }
+    },
+    "/data": {
+      "post": {
+        "tags": [
+          "users"
+        ],
+        "summary": "add stat",
+        "description": "Upload new statistics\n",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StatData"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "data added"
+          },
+          "400": {
+            "description": "invalid input"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "StatData": {
+        "required": [
+          "id"
+        ],
+        "type": "object",
+        "properties": {
+          "product": {
+            "$ref": "#/components/schemas/Product"
+          },
+          "period": {
+            "$ref": "#/components/schemas/TimePeriod"
+          }
+        }
+      },
+      "Product": {
+        "required": [
+          "id"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "fullWeight": {
+            "type": "number"
+          },
+          "currentWeight": {
+            "type": "number"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      "TimePeriod": {
+        "type": "object",
+        "properties": {
+          "from": {
+            "type": "number"
+          },
+          "to": {
+            "type": "number"
+          }
+        }
+      }
+    }
+  }
+}

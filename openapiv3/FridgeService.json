@@ -1,0 +1,94 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Ok Fridge RESTful API",
+    "description": "RESTful API of Fridge service\n",
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "/"
+    }
+  ],
+  "tags": [
+    {
+      "name": "users",
+      "description": "Operations available to users"
+    }
+  ],
+  "paths": {
+    "/products": {
+      "put": {
+        "tags": [
+          "users"
+        ],
+        "summary": "delete product",
+        "description": "Set product as eaten or thrown\n",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Product"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "product deleted"
+          },
+          "400": {
+            "description": "invalid input"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "users"
+        ],
+        "summary": "add product",
+        "description": "Add inforamtion about scanned product\n",
+        "requestBody": {
+          "description": "product to add",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Product"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "product added"
+          },
+          "400": {
+            "description": "invalid input"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Product": {
+        "required": [
+          "id"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "currentWeight": {
+            "type": "number"
+          }
+        }
+      }
+    }
+  }
+}
