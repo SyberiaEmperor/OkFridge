@@ -1,0 +1,1 @@
+docker run --name=app-db -e POSTGRES_PASSWORD=12345 -p 5436:5432 -d --rm postgres
